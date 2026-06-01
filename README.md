@@ -2,6 +2,8 @@
 
 A lightweight seasonal anime tracker built with plain HTML, CSS, and JavaScript. It pulls current and upcoming anime from the [Jikan API](https://docs.api.jikan.moe/) and stores your watchlist locally in the browser.
 
+Live at [anime.supmin.dev](https://anime.supmin.dev).
+
 ## Features
 
 - Browse current and upcoming seasonal anime
