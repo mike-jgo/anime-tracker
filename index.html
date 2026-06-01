@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seasonal: Animelist</title>
+<link rel="icon" href="assets/seasonal-logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="header__inner">
+        <a href="#" class="logo">
+            <img class="logo__mark" src="assets/seasonal-logo.png" alt="" />
+            <span class="logo__text">Seasonal</span>
+        </a>
+
+        <nav class="season-toggle" id="seasonToggle">
+            <button class="season-toggle__btn is-active" data-season="now">This Season</button>
+            <button class="season-toggle__btn" data-season="upcoming">Upcoming</button>
+        </nav>
+
+        <div class="header__right">
+            <button class="lang-switch" id="langSwitch" aria-label="Toggle title language" title="Toggle title language">
+                <span class="lang-switch__label" data-lang="romaji">Romaji</span>
+                <span class="lang-switch__label" data-lang="english">EN</span>
+            </button>
+
+            <button class="theme-switch" id="themeSwitch" aria-label="Toggle theme">
+                <span class="theme-switch__icon theme-switch__icon--sun">☀</span>
+                <span class="theme-switch__icon theme-switch__icon--moon">☾</span>
+            </button>
+
+            <button class="menu-switch" id="menuSwitch" type="button" aria-controls="menuDrawer" aria-expanded="false">
+                <span class="menu-switch__icon" aria-hidden="true">☰</span>
+                <span>Menu</span>
+            </button>
+            </div>
+        </div>
+    </header>
+
+<section class="controls">
+    <p class="current-season"><span id="seasonMarkerText">Current season</span> <strong id="currentSeasonLabel"></strong></p>
+    <div class="controls__inner">
+    <div class="search">
+        <input
+        type="text"
+        id="searchInput"
+        class="search__input"
+        placeholder="Search this season…"
+        autocomplete="off"
+        />
+    </div>
+
+    <div class="sort">
+        <select id="sortSelect" class="sort__select">
+        <option value="default">Sort: Default</option>
+        <option value="score">Highest Score</option>
+        <option value="popularity">Most Popular</option>
+        <option value="episodes">Episode Count</option>
+        </select>
+    </div>
+    </div>
+
+    <div class="browse-toolbar">
+        <div class="view-toggle" id="viewToggle" aria-label="View style">
+            <button class="view-toggle__btn" type="button" data-view="compact" aria-pressed="false">Compact</button>
+            <button class="view-toggle__btn" type="button" data-view="cards" aria-pressed="false">Cards</button>
+        </div>
+
+        <button class="filter-switch" id="filterSwitch" type="button" aria-controls="filterDrawer" aria-expanded="false">
+            <span>Filters</span>
+            <span class="filter-switch__count" id="filterCount" hidden>0</span>
+        </button>
+    </div>
+
+    <div class="genres genres--desktop" id="genreFilter">
+    </div>
+</section>
+
+<main class="grid-wrap">
+    <div class="grid" id="animeGrid">
+    </div>
+
+    <div class="empty" id="emptyState" hidden>
+        <p>No anime match your filters.</p>
+        <button class="empty__clear" id="emptyClearFilters" type="button">Clear filters</button>
+    </div>
+</main>
+
+<aside class="drawer" id="filterDrawer" aria-hidden="true">
+    <button class="drawer__backdrop" type="button" data-drawer-close aria-label="Close filters"></button>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="filterDrawerTitle" tabindex="-1">
+        <div class="drawer__header">
+            <h2 class="drawer__title" id="filterDrawerTitle">Filters</h2>
+            <button class="drawer__close" type="button" data-drawer-close aria-label="Close filters">✕</button>
+        </div>
+
+        <section class="drawer__section" aria-labelledby="drawerSortTitle">
+            <h3 class="drawer__heading" id="drawerSortTitle">Sort</h3>
+            <select id="drawerSortSelect" class="sort__select drawer__select">
+                <option value="default">Default</option>
+                <option value="score">Highest Score</option>
+                <option value="popularity">Most Popular</option>
+                <option value="episodes">Episode Count</option>
+            </select>
+        </section>
+
+        <section class="drawer__section" aria-labelledby="drawerGenresTitle">
+            <div class="drawer__section-header">
+                <h3 class="drawer__heading" id="drawerGenresTitle">Genres</h3>
+                <button class="drawer__clear" id="clearFilters" type="button">Clear filters</button>
+            </div>
+            <div class="genres genres--drawer" id="drawerGenreFilter"></div>
+        </section>
+    </div>
+</aside>
+
+<aside class="drawer" id="menuDrawer" aria-hidden="true">
+    <button class="drawer__backdrop" type="button" data-drawer-close aria-label="Close menu"></button>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="menuDrawerTitle" tabindex="-1">
+        <div class="drawer__header">
+            <h2 class="drawer__title" id="menuDrawerTitle">Menu</h2>
+            <button class="drawer__close" type="button" data-drawer-close aria-label="Close menu">✕</button>
+        </div>
+
+        <section class="drawer__section drawer__preferences" aria-labelledby="drawerPreferencesTitle">
+            <h3 class="drawer__heading" id="drawerPreferencesTitle">Preferences</h3>
+            <button class="drawer__preference" id="drawerLangSwitch" type="button">
+                <span>Title language</span>
+                <strong id="drawerLangValue">Romaji</strong>
+            </button>
+            <button class="drawer__preference" id="drawerThemeSwitch" type="button">
+                <span>Theme</span>
+                <strong id="drawerThemeValue">Dark</strong>
+            </button>
+        </section>
+    </div>
+</aside>
+
+<div class="modal" id="modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-label="Anime details">
+    <button class="modal__close" data-close aria-label="Close">✕</button>
+    <div class="modal__body" id="modalBody">
+    </div>
+    </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
