@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>500 · Something went wrong — Seasonal</title>
+<link rel="icon" href="/assets/seasonal-logo.png" />
+<script>
+  // Restore the saved theme before paint to avoid a flash.
+  try {
+    document.documentElement.setAttribute("data-theme", localStorage.getItem("seasonal_theme") || "dark");
+  } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="header__inner">
+            <a href="/" class="logo">
+                <img class="logo__mark" src="/assets/seasonal-logo.png" alt="" />
+                <span class="logo__text">Seasonal</span>
+            </a>
+
+            <div class="header__right">
+                <button class="theme-switch" id="themeSwitch" type="button" aria-label="Toggle theme">
+                    <span class="theme-switch__icon theme-switch__icon--sun">☀</span>
+                    <span class="theme-switch__icon theme-switch__icon--moon">☾</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="error">
+        <p class="error__code">500</p>
+        <h1 class="error__title">Something went wrong</h1>
+        <p class="error__message">Our server ran into a problem and couldn’t complete your request. Please try again in a moment.</p>
+        <div class="error__actions">
+            <a class="error__btn error__btn--primary" href="/">Back to this season</a>
+        </div>
+    </main>
+
+    <script>
+        // Theme toggle (mirrors the main app's persistence).
+        document.getElementById("themeSwitch").addEventListener("click", function () {
+            var root = document.documentElement;
+            var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("seasonal_theme", next); } catch (e) {}
+        });
+    </script>
+</body>
+</html>
